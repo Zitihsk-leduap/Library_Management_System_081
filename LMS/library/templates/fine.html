@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+{% block content %}
+
+<div class="container my-4">
+  <h1 class="text-center mb-4">Fine List</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">S.N</th>
+          <th scope="col">Book</th>
+          <th scope="col">Checkout Date</th>
+          <th scope="col"> Expected Return Date</th>
+          <th scope="col">Overdue Days</th>
+          <th scope="col">Fine</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for fine  in fines  %}
+        <!-- Sample Data Row -->
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{fine.book}}</td>
+          <td>{{fine.checkout_date}}</td>
+          <td>{{fine.Expected_return_date}}</td>
+          <td>{{fine.overdue_days}}</td>
+          <td>{{fine.fine}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="text-center">No fines! All books are returned on time.</td>
+        </tr>
+        {% endfor %}
+       
+        <!-- Add more rows dynamically as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

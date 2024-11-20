@@ -1,0 +1,35 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">Readers Currently Holding Books</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">S.N</th>
+                    <th scope="col">Reader</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Expected Return Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for readers in reader_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{readers.reader.username}}</td>
+                        <td>{{readers.book.title}}</td>
+                        <td>{{readers.checkout_date}}</td>
+                        <td>{{readers.return_due_date}}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No records found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

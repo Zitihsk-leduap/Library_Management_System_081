@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h3 class="text-center mb-4">{{ rentals.count }} rentals found</h3>
+
+  <!-- Table -->
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th scope="col">Book</th>
+              <th scope="col">Rental Date</th>
+              <th scope="col">Expected Return Date</th>
+              <th scope="col">Action</th>
+          </tr>
+      </thead>
+      
+      <tbody>
+        {% for rental in rentals %}
+          <tr>
+              <td>
+                  <strong>{{ rental.book.title }}</strong><br>
+                  <small>Written by {{ rental.book.author }}</small><br>
+              </td>
+              <td>{{ rental.checkout_date }}</td>
+              <td>{{ rental.return_due_date }}</td>
+              
+              <td>
+                <form action="{% url 'rental' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="checkout_id" value="{{ rental.id }}"> 
+                  <button class="btn btn-primary" type="submit">Return</button>
+                </form>
+              </td>
+          </tr>
+        {% empty %}
+          <tr>
+              <td colspan="4" class="text-center">
+                <p style="color:red;">No rentals found or all books have been returned.</p>
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

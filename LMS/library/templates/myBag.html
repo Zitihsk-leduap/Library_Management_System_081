@@ -1,0 +1,130 @@
+{% extends "home.html" %}
+{% block content %}
+<p style="font-weight:bold; color:red;">You have not borrowed any books yet. For that, you need to checkout.</p> 
+
+{% if messages %}
+  <div class="flash-message">
+    {% for message in messages %}
+      <div class="alert alert alert-danger p-1">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<h2 class="text-left my-5 mx-2">Selected Books</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Column for Book List -->
+        <div class="col-md-8">
+            <!-- Always display this message -->
+           
+
+            {% if mybag_items %}
+                {% for item in mybag_items %}
+                    <div class="list-group-item d-flex align-items-center p-2 mb-3">
+                        <!-- Display Book Image -->
+                        <img src="{{ item.book.image.url }}" alt="Book Image" class="mr-2" style="width: 50px; height: auto; object-fit: contain;">
+                        
+                        <!-- Book Title and Author -->
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 font-weight-bold">{{ item.book.title }}</h6>
+                            <small class="text-muted">{{ item.book.author }}</small>
+                        </div>
+                        
+                        <!-- Remove Button -->
+                        <form method="POST" action="{% url 'remove' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="book_id" value="{{ item.book.id }}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Right Column for Checkout Details -->
+        <div class="col-md-4" style="margin-top:-100px;"> <!-- Adjust the margin here -->
+            <h4 class="text-center" style="color:purple;">Ready for Checkout?</h4>
+            <div class="card p-3">
+                <form method="POST" action="{% url 'checkout'%}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Start date & time :</label>
+                        <p>{{current_date_time }}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="return_date">Return due date & time :</label>
+                        <input type="date" name='return_date' id="return_date" class="form-control" required>
+                    </div>
+                   
+                    <script>
+                        // Get the current date
+                        const currentDate = new Date();
+                    
+                        // Add one day to the current date
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    
+                        // Format the date as YYYY-MM-DD
+                        const formattedDate = currentDate.toISOString().split('T')[0];
+                    
+                        // Set the 'min' attribute for the return date input field
+                        document.getElementById('return_date').setAttribute('min', formattedDate);
+                    </script>
+
+                    <button type="submit" class="btn btn-success btn-block mt-3">Checkout</button>
+                </form>
+            </div>
+            <div class="alert alert-info mt-3">
+                <ul class="mb-0">
+                    <li>Readers should not mark, underline, write, or tear pages or otherwise damage the library documents.</li>
+                    <li>Handle library property carefully to avoid damage and do not disturb other readers/users.</li>
+                    <li>No material can be taken out of the library without permission.</li>
+                    <li>Four books are issued for two weeks and must be returned on or before the due date specified above.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  /* Position message in top-right corner but slightly lower */
+  .flash-message {
+    position: fixed;
+    top: 60px;  /* Adjust this value to move it slightly down */
+    right: 20px;
+    z-index: 1050;
+    animation: fadeOut 3s ease forwards;
+  }
+
+  /* Smaller message styling */
+  .flash-message .alert {
+    font-size: 0.85rem;  /* Small font size */
+    padding: 0.4rem 0.6rem;  /* Smaller padding */
+    border-radius: 5px;      /* Slight rounding for better appearance */
+  }
+
+  /* Fade-out animation */
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Align left for the entire book list section */
+  .list-group-item {
+    margin-left: 0;  /* Ensure it starts from the left */
+  }
+
+  .container-fluid {
+    padding-left: 10px;  /* Decrease padding for the left side */
+  }
+
+  h2.text-left {
+    text-align: left;  /* Aligns the title to the left */
+  }
+</style>
+
+{% endblock %}

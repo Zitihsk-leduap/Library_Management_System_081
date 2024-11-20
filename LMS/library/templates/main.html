@@ -1,0 +1,56 @@
+{% extends "home.html" %}
+
+{% block title %}Home - Library Management System{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Navbar -->
+ 
+
+  <!-- Hero Section -->
+  <div class="container my-5 text-center">
+    {% comment %} <img src="https://via.placeholder.com/100" alt="Library Logo" class="mb-3"> {% endcomment %}
+    <h1>Hello, readers!</h1>
+    <p class="lead">Welcome to Zi's Library. We have a large collection of books to cater to the reading needs of all kinds of readers.</p>
+    <a href="{% url 'books'%}" class="btn btn-primary btn-lg">Browse our collection »</a>
+  </div>
+
+  <!-- Information Section -->
+  <div class="container my-5">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <h5>Why reading is important?</h5>
+        <p>Reading is good for you because it improves your focus, memory, empathy, and communication skills. It can reduce stress, improve your mental health, and help you live longer. Reading also allows you to learn new things to help you succeed in your work and relationships.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Key Benefits</h5>
+        <ul class="list-unstyled">
+          <li>Increase vocabulary</li>
+          <li>Reduce stress</li>
+          <li>Improve mental health</li>
+          <li>Prevent cognitive decline</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Thought for the day</h5>
+        <p>"Just don't give up trying to do what you really want to do. Where there is love and inspiration, I don’t think you can go wrong." – Ella Fitzgerald</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/Dr0Uj5oCbQvF2Fa2YpH3maPR6ZpGd9y55j2tq0UpPz8vl5CtpP4gfo" crossorigin="anonymous"></script>
+</body>
+</html>
+
+{% endblock %}
